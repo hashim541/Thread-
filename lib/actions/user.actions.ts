@@ -160,3 +160,25 @@ export async function getActivity(userId: string){
         throw new Error(`Unable to fetch activity: ${error.message}`)
     }
 }
+
+export async function fetchSuggestedUser(userId: string){
+    try {
+        
+        connectToDB()
+
+        const suggestedUser = await User.find(
+            {
+                id: { $ne: userId }
+            }
+        )
+        .sort({ createdAt: 'desc' })
+        .limit(4)
+        .select('_id id name username image')
+
+
+        return suggestedUser
+
+    } catch (error: any) {
+        throw new Error(`Unable to fetch suggested users: ${error.message}`)
+    }
+}

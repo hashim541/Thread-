@@ -8,6 +8,7 @@ export default async function Home() {
   const result = await fetchThread(1,30);
   const user = await currentUser()
 
+
   return (
     <>
       <section className="mt-9 flex flex-col gap-10">
@@ -25,7 +26,7 @@ export default async function Home() {
                 content={thread.text}
                 author={thread.author}
                 community={thread.community}
-                createdAt={thread.creadtedAt}
+                createdAt={thread.createdAt}
                 comments={thread.children}
               />
             ))

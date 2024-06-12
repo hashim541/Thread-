@@ -38,7 +38,10 @@ const UserCard = ({
         </div>
         <Button className="user-card_btn"
         onClick={()=>{
-            router.push(`/profile/${id}`)
+            if(personType === 'User')
+                router.push(`/profile/${id}`)
+            else
+                router.push(`/communities/${id}`)
         }}
         >
             View

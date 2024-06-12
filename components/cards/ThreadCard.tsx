@@ -38,10 +38,10 @@ const ThreadCard = ({
                     <Link href={`/profile/${author.id}`} className="w-fit">
                         <h4 className="cursor-pointer text-base-semibold text-light-1">{author.name}</h4>
                     </Link>
-                    <p className="mt-2 text-small-regular text-light-2">
+                    <div className="mt-2 text-small-regular text-light-2">
                         <FormatPara content={content} />
                         
-                    </p>
+                    </div>
                     <div className="mt-5 flex flex-col gap-3">
                         <div className={`flex gap-3.5 ${isComment && 'mb-7'}`}>
                             <Image
@@ -89,22 +89,27 @@ const ThreadCard = ({
             </div>
             
 
-        {!isComment && community &&(
+        </div>
+        {!isComment && community ? (
             <Link href={`/communities/${community.id}`} className="mt-5 flex items-center">
                 <p className="text-subtle-medium text-gray-1">
+                    
                     {formatDateString(createdAt)} - {community.name} Community
                 </p>
 
                 <Image 
                     src={community.image}
                     alt='community image'
-                    width={14}
-                    height={14}
-                    className="ml-1 rounded-full object-cover"
+                    width={20}
+                    height={20}
+                    className="ml-2 rounded-full object-cover"
                 />
             </Link>
+        ): (
+            <p className="text-subtle-medium text-gray-1 mt-5">
+                {formatDateString(createdAt)} 
+            </p>
         )}
-        </div>
 
     </article>
   )

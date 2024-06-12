@@ -302,3 +302,24 @@ export async function deleteCommunity(communityId: string) {
     throw error;
   }
 }
+
+export async function fetchSuggestedCommunities(userId: string){
+  try {
+    
+    connectToDB()
+
+    const suggestedCommunities = await Community.find(
+        {
+            id: { $ne: userId },
+        }
+    )
+    .sort({ createdAt: 'desc' })
+    .limit(4)
+    .select('_id id name username image')
+
+    return suggestedCommunities
+
+  } catch (error: any) {
+    throw new Error(`Unable to fetch suggested communities: ${error.message}`)
+  }
+}
