@@ -59,18 +59,15 @@ export async function fetchThread(pageNumber = 1, pageSize = 20) {
             .sort({createdAt: 'desc'})
             .skip(skipAmount)
             .limit(pageSize)
-            .populate({path: 'author', model: User })
-            .populate({
-                path: "community",
-                model: Community,
-            })
+            .populate({ path: 'author', model: User })
+            .populate({ path: "community", model: Community })
             .populate({
                 path: 'children', 
                 populate: {
                     path: 'author',
                     model: User,
                     select: "id name parentId image"
-                }
+                },
             })
 
         const totalPostCount = await Thread.countDocuments({parentId: {$in: [null, undefined]}})

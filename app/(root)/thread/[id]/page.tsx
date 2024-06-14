@@ -54,7 +54,7 @@ const page = async (
                             content={eachcomment.text}
                             author={eachcomment.author}
                             community={eachcomment.community}
-                            createdAt={eachcomment.creadtedAt}
+                            createdAt={eachcomment.createdAt}
                             comments={eachcomment.children}
                             isComment={true}
                         />

@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import "../globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import { inter } from "@/utils/fonts";
+import { 
+  inter, 
+  robotoMono,
+  sourceCodePro,
+  firaCode,
+  roboto,
+  openSans,
+  lato,
+  nunito 
+} from "@/utils/fonts";
 
 import TopBar from "@/components/shared/TopBar";
 import BottomBar from "@/components/shared/BottomBar";

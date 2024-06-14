@@ -14,6 +14,7 @@ const LeftSideBar = () => {
   const pathname = usePathname()
   const { userId } = useAuth()
 
+
   const handelSignOut = async () => {
     await signOut(()=>{
       router.push('/sign-in')

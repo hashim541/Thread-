@@ -22,10 +22,16 @@ export type Threads = {
         image: string
     } | null,
     createdAt: string,
-    comments: {
+    comments: [{
+        _id: string,
         author: {
             image: string
         }
-    }[],
+    }],
     isComment?: boolean  
 }
+export type SearchResult = {
+    users?: any[];
+    communities?: any[];
+    isNext: boolean;
+};

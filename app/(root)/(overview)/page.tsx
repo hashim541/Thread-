@@ -8,6 +8,7 @@ export default async function Home() {
   const result = await fetchThread(1,30);
   const user = await currentUser()
 
+  
 
   return (
     <>

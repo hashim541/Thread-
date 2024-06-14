@@ -1,3 +1,4 @@
+
 import { fetchUserPosts } from "@/lib/actions/user.actions"
 import { redirect } from "next/navigation"
 import ThreadCard from "../cards/ThreadCard"
@@ -25,8 +26,6 @@ const ThreadsTab = async (
         result = await fetchCommunityPosts(accountId)
 
     if(!result) return redirect('/')
-
-    console.log(result);
     
 
     return (
@@ -50,11 +49,13 @@ const ThreadsTab = async (
                             image: thread.author.image,
                             id: thread.author.id
                         }}
-                        community={{
-                            image: result.image,
-                            name: result.name,
-                            id:result.id
-                        }}
+                        community={
+                            accountType === "Community" ? {
+                                image: result.image,
+                                name: result.name,
+                                id:result.id
+                            } : thread.community
+                        }
                         createdAt={thread.createdAt}
                         comments={thread.children}
                     />
