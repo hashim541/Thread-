@@ -1,3 +1,4 @@
+'use client'
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,27 +12,13 @@ import { Input } from "../ui/input";
 import { searchValidation } from "@/lib/validation/search";
 import Image from "next/image";
 import { useDebouncedCallback } from 'use-debounce';
-import { fetchUsers } from "@/lib/actions/user.actions";
-import { fetchCommunities } from "@/lib/actions/community.action";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
-interface Props {
-    setResult: Dispatch<SetStateAction<{
-        users?: any[]
-        communities?: any[]
-        isNext: boolean
-      }>>,
-    userId: string
-    type: 'User' | 'Community'
-}
+const SearchBar = () => {
 
-const SearchBar = (
-    {
-        userId,
-        setResult,
-        type,
-    }: Props
-) => {
-
+    const searchParams = useSearchParams()
+    const {replace} = useRouter()
+    const pathname = usePathname() 
 
     const form = useForm({
         resolver: zodResolver(searchValidation),
@@ -46,23 +33,16 @@ const SearchBar = (
         debouncedSearch(item)
     }
       
-    const debouncedSearch = useDebouncedCallback(async (item: string) => {
-        if (type === 'User') {
-          const result = await fetchUsers({
-            userId: userId,
-            searchString: item,
-            pageNumber: 1,
-            pageSize: 25,
-          });
-          setResult(result)
-        } else {
-          const result = await fetchCommunities({
-            searchString: item,
-            pageNumber: 1,
-            pageSize: 25,
-          });
-          setResult(result)
-        }
+    const debouncedSearch = useDebouncedCallback((item: string) => {
+        const newParams = new URLSearchParams(searchParams)
+        newParams.set('page','1')
+        if(item)
+            newParams.set('query',item)
+        else
+            newParams.delete('query')
+
+        replace(`${pathname}?${newParams.toString()}`)
+        
     }, 300)
 
     return (
@@ -98,7 +78,7 @@ const SearchBar = (
 
                 
             </form>
-            </Form>
+        </Form>
     )
 }
 

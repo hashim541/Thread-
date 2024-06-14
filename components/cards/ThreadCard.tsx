@@ -1,8 +1,10 @@
+
 import Link from "next/link"
 import Image from "next/image"
 import { Threads } from "@/utils/data"
 import FormatPara from "../shared/FormatPara"
 import { formatDateString } from "@/lib/utils"
+import DeleteThread from "../shared/DeleteThread"
 
 const ThreadCard = ({
     id,
@@ -13,7 +15,8 @@ const ThreadCard = ({
     community,
     createdAt,
     comments,
-    isComment
+    isComment,
+    accountId
 }: Threads) => {
     return (
         <article className={`flex w-full flex-col rounded-xl  ${isComment ? ` px-0 xs:px-7 ` : ` bg-dark-2 p-7 `}`}>
@@ -82,6 +85,10 @@ const ThreadCard = ({
                             
                         </div>
                     </div>
+
+                    {currentUserId === accountId && (
+                        <DeleteThread threadId={id} />
+                    )}
                 </div>
             </div>
             

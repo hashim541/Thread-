@@ -58,6 +58,7 @@ const ThreadsTab = async (
                         }
                         createdAt={thread.createdAt}
                         comments={thread.children}
+                        accountId={accountId}
                     />
                 ))
             }

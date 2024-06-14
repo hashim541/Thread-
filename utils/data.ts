@@ -28,7 +28,8 @@ export type Threads = {
             image: string
         }
     }],
-    isComment?: boolean  
+    isComment?: boolean 
+    accountId?: string 
 }
 export type SearchResult = {
     users?: any[];
