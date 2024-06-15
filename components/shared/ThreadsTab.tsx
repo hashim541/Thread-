@@ -56,6 +56,7 @@ const ThreadsTab = async (
                                 id:result.id
                             } : thread.community
                         }
+                        image={thread.image}
                         createdAt={thread.createdAt}
                         comments={thread.children}
                         accountId={accountId}

@@ -11,6 +11,7 @@ const ThreadCard = ({
     currentUserId,
     parentId,
     content,
+    image,
     author,
     community,
     createdAt,
@@ -41,7 +42,18 @@ const ThreadCard = ({
                         </Link>
                         <div className="mt-2 text-small-regular text-light-2">
                             <FormatPara content={content} />
-                            
+
+                            {image && (
+                                <div className="flex items-start justify-start">
+                                    <Image 
+                                        src={image}
+                                        alt="thread image"
+                                        width={500}
+                                        height={500}
+                                        className="w-full max-w-sm mt-10 mb-3 rounded-xl"
+                                    />
+                                </div>
+                            )}
                         </div>
                         <div className="mt-5 flex flex-col gap-3">
                             <div className={`flex gap-3.5 ${isComment && 'mb-9'}`}>

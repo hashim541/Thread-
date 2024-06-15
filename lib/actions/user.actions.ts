@@ -10,7 +10,6 @@ import Community from "../models/community.model";
 
 export async function updateUser( userData: UserData, path: string ): Promise<void>{
     await connectToDB();
-
     try {
         await User.findOneAndUpdate( 
             { id: userData.id },

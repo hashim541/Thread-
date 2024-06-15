@@ -6,8 +6,6 @@ import { usePathname } from "next/navigation"
 
 const DeleteThread = ({threadId}:{threadId: string}) => {
     const pathname = usePathname()
-    console.log(pathname);
-
     if (!pathname.includes('profile'))
         return null
 

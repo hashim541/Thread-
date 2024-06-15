@@ -21,6 +21,7 @@ export type Threads = {
         name: string,
         image: string
     } | null,
+    image?: string,
     createdAt: string,
     comments: [{
         _id: string,

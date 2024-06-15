@@ -9,16 +9,17 @@ import Community from "../models/community.model"
 interface Params {
     text: string,
     author: string,
+    image: string,
     community: string | null,
     path: string
 }
 
-export async function createThread({ text, author, community, path }: Params
+export async function createThread({ text, author, image, community, path }: Params
 ) {
   try {
     connectToDB();
 
-    console.log('COMMUNITY      ',community)
+    console.log({ text, author, image, community, path })
 
     const communityIdObject = await Community.findOne(
       { id: community },
@@ -28,9 +29,10 @@ export async function createThread({ text, author, community, path }: Params
     const createdThread = await Thread.create({
       text,
       author,
+      image,
       community: communityIdObject, // Assign communityId if provided, or leave it null for personal account
     });
-
+    console.log(createThread)
     // Update User model
     await User.findByIdAndUpdate(author, {
       $push: { threads: createdThread._id },
@@ -106,6 +108,32 @@ export async function deleteThread(id: string, path: string): Promise<void> {
         throw new Error("Thread not found");
         }
 
+        // if (mainThread.image) {
+        //     const apiKey = process.env.UPLOADTHING_SECRET;
+        //     console.log('Image URL to delete:', mainThread.image);
+        //     // Delete the image using UploadThing API
+        //     const response = await fetch('https://uploadthing.com/api/deleteFile', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'X-Uploadthing-Api-Key': apiKey || '',
+        //             'X-Uploadthing-Version': '6.4.0', // Update to the current version you're using
+        //         },
+        //         body: JSON.stringify({
+        //             files: [mainThread.image], // Assuming mainThread.image is the URL of the image
+        //             fileKeys: [],
+        //             customIds: [],
+        //         }),
+        //     });
+
+        //     if (!response.ok) {
+        //         throw new Error('Failed to delete image');
+        //     }
+        //     console.log(response);
+            
+        // }
+
+
         // Fetch all child threads and their descendants recursively
         const descendantThreads = await fetchAllChildThreads(id);
 
@@ -147,6 +175,7 @@ export async function deleteThread(id: string, path: string): Promise<void> {
 
         revalidatePath(path);
     } catch (error: any) {
+        console.error('Error deleting thread:', error);
         throw new Error(`Failed to delete thread: ${error.message}`);
     }
 }
@@ -211,6 +240,7 @@ export async function addCommentToThread(
         const commentThread = new Thread({
             text: commentText,
             author: userId,
+            image: '',
             parentId: threadId,
         })
 

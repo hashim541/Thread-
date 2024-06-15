@@ -31,6 +31,7 @@ const page = async (
                     parentId={thread.parentId}
                     content={thread.text}
                     author={thread.author}
+                    image={thread.image}
                     community={thread.community}
                     createdAt={thread.createdAt}
                     comments={thread.children}
