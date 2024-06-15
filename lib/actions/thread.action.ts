@@ -49,7 +49,7 @@ export async function createThread({ text, author, community, path }: Params
   }
 }
 
-export async function fetchThread(pageNumber = 1, pageSize = 20) {
+export async function fetchThread({pageNumber = 1, pageSize = 20}:{pageNumber: number, pageSize: number}) {
     try {
         connectToDB()
 

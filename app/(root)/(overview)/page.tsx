@@ -2,17 +2,26 @@ import { fetchThread } from "@/lib/actions/thread.action";
 // import { UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import ThreadCard from "@/components/cards/ThreadCard";
+import Pagination from "@/components/shared/Pagination";
 
-export default async function Home() {
+export default async function Home(
+  {searchParams}:
+    {searchParams?:{
+        page?: string
+    }}
+) {
 
-  const result = await fetchThread(1,30);
+  const currentPage = Number(searchParams?.page) || 1
+
+  const result = await fetchThread({
+    pageNumber: currentPage,
+    pageSize:30
+  });
   const user = await currentUser()
 
-  
-
   return (
-    <>
-      <section className="mt-9 flex flex-col gap-10">
+    <section  className="flex flex-col flex-1 h-full">
+      <section className="mt-9 flex flex-col gap-10 mb-auto">
       {result.posts.length === 0 ? (
         <p className="no_result">No threads found</p>
       ) : (
@@ -35,6 +44,8 @@ export default async function Home() {
         </>
       )}
       </section>
-    </>
+
+      <Pagination isNext={result.isNext} />
+    </section>
   );
 }

@@ -1,5 +1,6 @@
 import CommunityCard from "@/components/cards/CommunityCard"
 import SearchBar from "@/components/forms/SearchBar"
+import Pagination from "@/components/shared/Pagination"
 import { fetchCommunities } from "@/lib/actions/community.action"
 import { fetchUser } from "@/lib/actions/user.actions"
 import { currentUser } from "@clerk/nextjs/server"
@@ -23,16 +24,16 @@ const page = async (
     const result = await fetchCommunities({
       searchString: searchParams?.query || '',
       pageNumber: Number(searchParams?.page) || 1,
-      pageSize: 25,
+      pageSize: 10,
     });
   
     return (
-      <section>
+      <section  className="flex flex-col flex-1 h-full">
         <h1 className="head-text mb-10">Community</h1>
         
         <SearchBar />
 
-        <div className="mt-14 flex flex-wrap gap-9">
+        <div className="mt-14 flex flex-wrap gap-9 mb-auto">
             {result.communities?.length === 0 ? (
                 <p className="no-result">No communities</p>
             ):(
@@ -51,6 +52,7 @@ const page = async (
                 </>
             )}
         </div>
+        <Pagination isNext={result.isNext} />
       </section>
     )
   }
