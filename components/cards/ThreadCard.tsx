@@ -127,8 +127,8 @@ const ThreadCard = ({
                     </div>
                 )}
 
-                {!isComment && community ? (
-                    <Link href={`/communities/${community.id}`} className="flex items-center">
+                {!isComment && community && (
+                    <Link href={`/communities/${community.id}`} className={`flex items-center ${isComment && 'mb-9'}`}>
                         <div className="text-subtle-medium text-gray-1">
                             
                             {formatDateString(createdAt)} - {community.name} Community
@@ -142,9 +142,11 @@ const ThreadCard = ({
                             className="ml-2 rounded-full object-cover"
                         />
                     </Link>
-                ):(
-                    <p className="text-subtle-medium text-gray-1"> {formatDateString(createdAt)}</p>
-                )}
+                )
+                // :(
+                //     <p className={`text-subtle-medium text-gray-1 ${isComment && 'mb-9'}`}> {formatDateString(createdAt)}</p>
+                // )
+                }
             </div>
 
         </article>
