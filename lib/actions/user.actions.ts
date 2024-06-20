@@ -54,7 +54,7 @@ export async function fetchUserPosts(userId: string){
 
 
         // populate communtiy
-        const threads = await User.findOne({id: userId})
+        let threads = await User.findOne({id: userId})
             .populate({
                 path:'threads',
                 model:Thread,
@@ -75,8 +75,9 @@ export async function fetchUserPosts(userId: string){
                       },
                     },
                   ]
-            })            
+            })
         
+        threads.threads = threads.threads.reverse()
         return threads
         
     } catch (error: any) {

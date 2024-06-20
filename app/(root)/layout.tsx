@@ -3,13 +3,7 @@ import "../globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { 
   inter, 
-  robotoMono,
-  sourceCodePro,
-  firaCode,
-  roboto,
-  openSans,
-  lato,
-  nunito 
+  DM_mono
 } from "@/utils/fonts";
 
 import TopBar from "@/components/shared/TopBar";
