@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className}>
+        <body className={DM_mono.className}>
           <TopBar/>
           <main className="flex flex-row">
             <LeftSideBar/>
